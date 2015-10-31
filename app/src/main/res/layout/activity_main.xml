@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background">
+
+  <include
+    android:id="@+id/defaultToolbar"
+    layout="@layout/toolbar_default" />
+
+  <TableLayout
+    android:id="@+id/board"
+    android:layout_centerInParent="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#00000000">
+
+    <TableRow>
+
+      <TextView
+        android:id="@+id/statistics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_span="3"
+        android:background="@color/statistics"
+        android:padding="5dp"
+        android:text="@string/statistics"
+        android:textColor="#ffababab"
+        android:textSize="16sp" />
+
+    </TableRow>
+
+    <TableRow>
+
+      <ImageView
+        android:id="@+id/cell_100"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/app_name"
+        android:background="@color/grid"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp" />
+
+      <ImageView
+        android:id="@+id/cell_010"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/app_name"
+        android:background="@color/grid"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp" />
+
+      <ImageView
+        android:id="@+id/cell_001"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/app_name"
+        android:background="@color/grid"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="5dp" />
+
+    </TableRow>
+
+    <TableRow>
+
+      <ImageView
+        android:id="@+id/cell_200"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/app_name"
+        android:background="@color/grid"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+
+      <ImageView
+        android:id="@+id/cell_020"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/app_name"
+        android:background="@color/grid"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+
+      <ImageView
+        android:id="@+id/cell_002"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/app_name"
+        android:background="@color/grid"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+
+    </TableRow>
+
+    <TableRow>
+
+      <ImageView
+        android:id="@+id/cell_300"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/app_name"
+        android:background="@color/grid"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp" />
+
+      <ImageView
+        android:id="@+id/cell_030"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/app_name"
+        android:background="@color/grid"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp" />
+
+      <ImageView
+        android:id="@+id/cell_003"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@string/app_name"
+        android:background="@color/grid"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp" />
+
+    </TableRow>
+  </TableLayout>
+
+  <RelativeLayout
+    android:id="@+id/panel"
+    android:layout_below="@+id/defaultToolbar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone">
+
+    <Button
+      android:id="@+id/replay"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:text="@string/action_replay"
+      android:paddingStart="25dp"
+      android:paddingEnd="25dp"
+      android:textSize="18sp" />
+
+  </RelativeLayout>
+</RelativeLayout>

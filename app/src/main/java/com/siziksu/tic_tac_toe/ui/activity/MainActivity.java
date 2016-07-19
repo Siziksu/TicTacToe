@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.siziksu.tic_tac_toe.R;
-import com.siziksu.tic_tac_toe.commons.Logger;
+import com.siziksu.tic_tac_toe.common.Logger;
 import com.siziksu.tic_tac_toe.presenter.GenericView;
 import com.siziksu.tic_tac_toe.presenter.MainPresenter;
 import com.siziksu.tic_tac_toe.presenter.MainPresenterImpl;

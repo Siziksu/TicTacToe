@@ -3,9 +3,9 @@ package com.siziksu.tic_tac_toe.game;
 import android.content.Context;
 
 import com.siziksu.tic_tac_toe.R;
-import com.siziksu.tic_tac_toe.commons.Logger;
-import com.siziksu.tic_tac_toe.commons.Maths;
-import com.siziksu.tic_tac_toe.commons.Preferences;
+import com.siziksu.tic_tac_toe.common.Logger;
+import com.siziksu.tic_tac_toe.common.Maths;
+import com.siziksu.tic_tac_toe.common.Preferences;
 
 public class GameLogic {
 

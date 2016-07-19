@@ -1,4 +1,4 @@
-package com.siziksu.tic_tac_toe.commons;
+package com.siziksu.tic_tac_toe.common;
 
 import android.util.Log;
 

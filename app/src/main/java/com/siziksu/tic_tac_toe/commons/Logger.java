@@ -4,28 +4,32 @@ import android.util.Log;
 
 public class Logger {
 
-  private static final String TAG = "LOGGER";
-  private static final boolean DEBUG = false;
+    private static final String TAG = "LOGGER";
+    private static boolean debug;
 
-  public static void println(Object o) {
-    if (DEBUG) {
-      print(String.valueOf(o));
+    public static void setDebug(boolean debug) {
+        Logger.debug = debug;
     }
-  }
 
-  public static void printErrorLn(Object o) {
-    if (DEBUG) {
-      printError(String.valueOf(o));
+    public static void println(Object o) {
+        if (debug) {
+            print(String.valueOf(o));
+        }
     }
-  }
 
-  private static synchronized void print(String str) {
-    str = str == null ? "null" : str;
-    Log.d(TAG, str);
-  }
+    public static void printErrorLn(Object o) {
+        if (debug) {
+            printError(String.valueOf(o));
+        }
+    }
 
-  private static synchronized void printError(String str) {
-    str = str == null ? "null" : str;
-    Log.wtf(TAG, str);
-  }
+    private static synchronized void print(String str) {
+        str = str == null ? "null" : str;
+        Log.d(TAG, str);
+    }
+
+    private static synchronized void printError(String str) {
+        str = str == null ? "null" : str;
+        Log.wtf(TAG, str);
+    }
 }

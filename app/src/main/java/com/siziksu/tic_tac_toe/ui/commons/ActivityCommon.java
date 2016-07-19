@@ -8,50 +8,50 @@ import android.widget.Toast;
 
 public class ActivityCommon {
 
-  private final Context context;
+    private final Context context;
 
-  private static ActivityCommon instance;
+    private static ActivityCommon instance;
 
-  public static ActivityCommon getInstance(Context context) {
-    if (instance == null) {
-      instance = new ActivityCommon(context);
+    public static ActivityCommon getInstance(Context context) {
+        if (instance == null) {
+            instance = new ActivityCommon(context);
+        }
+        return instance;
     }
-    return instance;
-  }
 
-  private ActivityCommon(Context context) {
-    this.context = context;
-  }
-
-  public void applyToolBarStyle(AppCompatActivity activity, Toolbar toolbar) {
-    activity.setSupportActionBar(toolbar);
-  }
-
-  public void applyToolBarStyleWithHome(AppCompatActivity activity, Toolbar toolbar) {
-    activity.setSupportActionBar(toolbar);
-    android.support.v7.app.ActionBar actionBar = activity.getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setDisplayShowHomeEnabled(true);
+    private ActivityCommon(Context context) {
+        this.context = context;
     }
-  }
 
-  public void applyToolBarStyleWithHomeUp(AppCompatActivity activity, Toolbar toolbar) {
-    activity.setSupportActionBar(toolbar);
-    android.support.v7.app.ActionBar actionBar = activity.getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setDisplayShowHomeEnabled(true);
-      actionBar.setDisplayHomeAsUpEnabled(true);
+    public void applyToolBarStyle(AppCompatActivity activity, Toolbar toolbar) {
+        activity.setSupportActionBar(toolbar);
     }
-  }
 
-  public void hideSoftKeyboard(AppCompatActivity activity) {
-    if (activity.getCurrentFocus() != null) {
-      InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-      inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+    public void applyToolBarStyleWithHome(AppCompatActivity activity, Toolbar toolbar) {
+        activity.setSupportActionBar(toolbar);
+        android.support.v7.app.ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
     }
-  }
 
-  public void showMessage(String message) {
-    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-  }
+    public void applyToolBarStyleWithHomeUp(AppCompatActivity activity, Toolbar toolbar) {
+        activity.setSupportActionBar(toolbar);
+        android.support.v7.app.ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    public void hideSoftKeyboard(AppCompatActivity activity) {
+        if (activity.getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
+    public void showMessage(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
 }

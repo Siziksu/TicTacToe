@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.siziksu.tic_tac_toe.R;
+import com.siziksu.tic_tac_toe.commons.Logger;
 import com.siziksu.tic_tac_toe.presenter.GenericView;
 import com.siziksu.tic_tac_toe.presenter.MainPresenter;
 import com.siziksu.tic_tac_toe.presenter.MainPresenterImpl;
@@ -19,86 +20,88 @@ import com.siziksu.tic_tac_toe.ui.commons.ActivityCommon;
 
 public class MainActivity extends AppCompatActivity implements GenericView {
 
-  private MainPresenter presenter;
+    private MainPresenter presenter;
 
-  private ViewGroup blocker;
-  private TextView statistics;
+    private ViewGroup blocker;
+    private TextView statistics;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-    Toolbar defaultToolbar = (Toolbar) findViewById(R.id.defaultToolbar);
-    ActivityCommon.getInstance(this).applyToolBarStyleWithHome(this, defaultToolbar);
+        Logger.setDebug(false);
 
-    findViewById(R.id.replay).setOnClickListener(new View.OnClickListener() {
+        Toolbar defaultToolbar = (Toolbar) findViewById(R.id.defaultToolbar);
+        ActivityCommon.getInstance(this).applyToolBarStyleWithHome(this, defaultToolbar);
 
-      @Override
-      public void onClick(View v) {
-        presenter.replay();
-      }
-    });
+        findViewById(R.id.replay).setOnClickListener(new View.OnClickListener() {
 
-    statistics = (TextView) findViewById(R.id.statistics);
+            @Override
+            public void onClick(View v) {
+                presenter.replay();
+            }
+        });
 
-    blocker = ((RelativeLayout) findViewById(R.id.panel));
-    blocker.setOnTouchListener(new View.OnTouchListener() {
+        statistics = (TextView) findViewById(R.id.statistics);
 
-      @Override
-      public boolean onTouch(View v, MotionEvent event) {
-        return true;
-      }
-    });
+        blocker = ((RelativeLayout) findViewById(R.id.panel));
+        blocker.setOnTouchListener(new View.OnTouchListener() {
 
-    presenter = new MainPresenterImpl(this);
-    presenter.init(this);
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
-    printStatistics();
-  }
+        presenter = new MainPresenterImpl(this);
+        presenter.init(this);
 
-  @Override
-  protected void onResume() {
-    super.onResume();
-    presenter.registerGenericView(this);
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    presenter.unregisterGenericView();
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_main, menu);
-    return super.onCreateOptionsMenu(menu);
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home:
-        super.onBackPressed();
-        break;
-      case R.id.action_reset:
-        presenter.resetStatistics();
-        break;
+        printStatistics();
     }
-    return false;
-  }
 
-  @Override
-  public void showBlocker() {
-    blocker.setVisibility(View.VISIBLE);
-  }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.registerGenericView(this);
+    }
 
-  @Override
-  public void hideBlocker() {
-    blocker.setVisibility(View.GONE);
-  }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.unregisterGenericView();
+    }
 
-  public void printStatistics() {
-    statistics.setText(presenter.getStatistics());
-  }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                super.onBackPressed();
+                break;
+            case R.id.action_reset:
+                presenter.resetStatistics();
+                break;
+        }
+        return false;
+    }
+
+    @Override
+    public void showBlocker() {
+        blocker.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideBlocker() {
+        blocker.setVisibility(View.GONE);
+    }
+
+    public void printStatistics() {
+        statistics.setText(presenter.getStatistics());
+    }
 }

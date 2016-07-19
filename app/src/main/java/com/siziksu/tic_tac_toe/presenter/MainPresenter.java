@@ -4,20 +4,20 @@ import android.support.v7.app.AppCompatActivity;
 
 public interface MainPresenter {
 
-  /**
-   * Initializes the game setting the board images and the click listener
-   *
-   * @param activity activity
-   */
-  void init(AppCompatActivity activity);
+    /**
+     * Initializes the game setting the board images and the click listener
+     *
+     * @param activity activity
+     */
+    void init(AppCompatActivity activity);
 
-  void registerGenericView(GenericView view);
+    void registerGenericView(GenericView view);
 
-  void unregisterGenericView();
+    void unregisterGenericView();
 
-  String getStatistics();
+    String getStatistics();
 
-  void resetStatistics();
+    void resetStatistics();
 
-  void replay();
+    void replay();
 }

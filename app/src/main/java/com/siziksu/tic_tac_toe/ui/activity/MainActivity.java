@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements GenericView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Logger.setDebug(false);
+        Logger.enableLog(false);
 
         Toolbar defaultToolbar = (Toolbar) findViewById(R.id.defaultToolbar);
         ActivityCommon.getInstance(this).applyToolBarStyleWithHome(this, defaultToolbar);

@@ -5,20 +5,20 @@ import android.util.Log;
 public class Logger {
 
     private static final String TAG = "LOGGER";
-    private static boolean debug;
+    private static boolean log;
 
-    public static void setDebug(boolean debug) {
-        Logger.debug = debug;
+    public static void enableLog(boolean log) {
+        Logger.log = log;
     }
 
     public static void println(Object o) {
-        if (debug) {
+        if (log) {
             print(String.valueOf(o));
         }
     }
 
     public static void printErrorLn(Object o) {
-        if (debug) {
+        if (log) {
             printError(String.valueOf(o));
         }
     }

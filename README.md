@@ -1,5 +1,13 @@
 # TicTacToe
+
 The classic Tic-Tac-Toe game for Android.
+
+## Screenshots
+
+![Screenshot](art/Screenshot_20160810-123913.png)
+![Screenshot](art/Screenshot_20160810-123922.png)
+![Screenshot](art/Screenshot_20160810-123926.png)
+![Screenshot](art/Screenshot_20160810-123932.png)
 
 ## License
     Copyright 2015 Esteban Latre

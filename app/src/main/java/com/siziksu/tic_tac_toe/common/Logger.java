@@ -4,7 +4,8 @@ import android.util.Log;
 
 public class Logger {
 
-    private static final String TAG = "LOGGER";
+    private static final String TAG = "Tic-Tac-Toe";
+
     private static boolean log;
 
     public static void enableLog(boolean log) {

@@ -6,7 +6,7 @@ public class Maths {
 
     private Maths() {}
 
-    public static Maths getInstance() {
+    public static Maths get() {
         if (instance == null) {
             instance = new Maths();
         }
@@ -18,6 +18,6 @@ public class Maths {
     }
 
     public double round(double number, int decimals) {
-        return (double) Math.round(number * Math.pow(10, decimals)) / Math.pow(10l, decimals);
+        return (double) Math.round(number * Math.pow(10, decimals)) / Math.pow(10L, decimals);
     }
 }

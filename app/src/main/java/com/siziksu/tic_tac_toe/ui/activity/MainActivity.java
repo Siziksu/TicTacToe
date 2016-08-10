@@ -11,16 +11,16 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.siziksu.tic_tac_toe.App;
 import com.siziksu.tic_tac_toe.R;
+import com.siziksu.tic_tac_toe.common.ActivityCommon;
 import com.siziksu.tic_tac_toe.common.Logger;
-import com.siziksu.tic_tac_toe.presenter.GenericView;
-import com.siziksu.tic_tac_toe.presenter.MainPresenter;
-import com.siziksu.tic_tac_toe.presenter.MainPresenterImpl;
-import com.siziksu.tic_tac_toe.ui.commons.ActivityCommon;
+import com.siziksu.tic_tac_toe.presenter.IGamePresenter;
+import com.siziksu.tic_tac_toe.presenter.IGameView;
 
-public class MainActivity extends AppCompatActivity implements GenericView {
+public class MainActivity extends AppCompatActivity implements IGameView {
 
-    private MainPresenter presenter;
+    private IGamePresenter presenter;
 
     private ViewGroup blocker;
     private TextView statistics;
@@ -29,12 +29,9 @@ public class MainActivity extends AppCompatActivity implements GenericView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Logger.enableLog(false);
-
         Toolbar defaultToolbar = (Toolbar) findViewById(R.id.defaultToolbar);
-        ActivityCommon.getInstance(this).applyToolBarStyleWithHome(this, defaultToolbar);
-
+        ActivityCommon.get().applyToolBarStyleWithHome(this, defaultToolbar);
         findViewById(R.id.replay).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -42,9 +39,7 @@ public class MainActivity extends AppCompatActivity implements GenericView {
                 presenter.replay();
             }
         });
-
         statistics = (TextView) findViewById(R.id.statistics);
-
         blocker = ((RelativeLayout) findViewById(R.id.panel));
         blocker.setOnTouchListener(new View.OnTouchListener() {
 
@@ -53,23 +48,21 @@ public class MainActivity extends AppCompatActivity implements GenericView {
                 return true;
             }
         });
-
-        presenter = new MainPresenterImpl(this);
+        presenter = App.gameModule().getGame();
         presenter.init(this);
-
-        printStatistics();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.registerGenericView(this);
+        presenter.register(this);
+        presenter.printStatistics();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        presenter.unregisterGenericView();
+        presenter.unregister();
     }
 
     @Override
@@ -92,16 +85,11 @@ public class MainActivity extends AppCompatActivity implements GenericView {
     }
 
     @Override
-    public void showBlocker() {
-        blocker.setVisibility(View.VISIBLE);
+    public void showBlocker(boolean value) {
+        blocker.setVisibility(value ? View.VISIBLE : View.GONE);
     }
 
-    @Override
-    public void hideBlocker() {
-        blocker.setVisibility(View.GONE);
-    }
-
-    public void printStatistics() {
-        statistics.setText(presenter.getStatistics());
+    public void printStatistics(String stats) {
+        statistics.setText(stats);
     }
 }

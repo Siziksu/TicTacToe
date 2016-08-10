@@ -1,13 +1,11 @@
 package com.siziksu.tic_tac_toe.game;
 
-import android.content.Context;
-
 import com.siziksu.tic_tac_toe.R;
 import com.siziksu.tic_tac_toe.common.Logger;
 import com.siziksu.tic_tac_toe.common.Maths;
 import com.siziksu.tic_tac_toe.common.Preferences;
 
-public class GameLogic {
+public class GameLogic implements IGameLogic {
 
     private static final String KEY_WINNER_X = "winner_x";
     private static final String KEY_WINNER_O = "winner_o";
@@ -37,50 +35,40 @@ public class GameLogic {
         turn = X_TURN;
     }
 
-    /**
-     * Gets the statistics of the game
-     *
-     * @return int[]{total_games, player1_wins, player1_percent, player2_wins, player2_percent}
-     */
-    public float[] statistics(Context context) {
-        int xWins = Preferences.getInstance(context).getInt(KEY_WINNER_X, 0);
-        int oWins = Preferences.getInstance(context).getInt(KEY_WINNER_O, 0);
-        int games = Preferences.getInstance(context).getInt(KEY_GAMES, 0);
+    @Override
+    public float[] statistics() {
+        int xWins = Preferences.get().getInt(KEY_WINNER_X, 0);
+        int oWins = Preferences.get().getInt(KEY_WINNER_O, 0);
+        int games = Preferences.get().getInt(KEY_GAMES, 0);
         return new float[]
                 {
                         games,
                         xWins,
-                        (float) Maths.getInstance().round(xWins * 100f / games),
+                        (float) Maths.get().round(xWins * 100f / games),
                         oWins,
-                        (float) Maths.getInstance().round(oWins * 100f / games)
+                        (float) Maths.get().round(oWins * 100f / games)
                 };
     }
 
-    public void resetStatistics(Context context) {
-        Preferences.getInstance(context).setInt(KEY_WINNER_X, 0);
-        Preferences.getInstance(context).setInt(KEY_WINNER_O, 0);
-        Preferences.getInstance(context).setInt(KEY_GAMES, 0);
+    @Override
+    public void resetStatistics() {
+        Preferences.get().setInt(KEY_WINNER_X, 0);
+        Preferences.get().setInt(KEY_WINNER_O, 0);
+        Preferences.get().setInt(KEY_GAMES, 0);
     }
 
-    /**
-     * Write the winner in the Preferences of the application
-     *
-     * @param context context
-     */
-    public void writeWinner(Context context) {
+    @Override
+    public void writeWinner() {
         String key = (winner == X_PLAYER ? KEY_WINNER_X : KEY_WINNER_O);
-        Preferences.getInstance(context).setInt(key, Preferences.getInstance(context).getInt(key, 0) + 1);
+        Preferences.get().setInt(key, Preferences.get().getInt(key, 0) + 1);
     }
 
-    /**
-     * Adds another game to the statistics
-     *
-     * @param context context
-     */
-    public void addAnotherGamePlayed(Context context) {
-        Preferences.getInstance(context).setInt(KEY_GAMES, Preferences.getInstance(context).getInt(KEY_GAMES, 0) + 1);
+    @Override
+    public void addAnotherGamePlayed() {
+        Preferences.get().setInt(KEY_GAMES, Preferences.get().getInt(KEY_GAMES, 0) + 1);
     }
 
+    @Override
     public void resetBoard() {
         turn = X_TURN;
         winner = DRAW;
@@ -92,14 +80,17 @@ public class GameLogic {
         }
     }
 
+    @Override
     public void addMove() {
         moves++;
     }
 
+    @Override
     public int getValueOfTheMove() {
         return turn == X_TURN ? X_VALUE : O_VALUE;
     }
 
+    @Override
     public void setValueForTheCell(int cell, int value) {
         switch (cell) {
             case R.id.cell_100:
@@ -132,23 +123,22 @@ public class GameLogic {
         }
     }
 
+    @Override
     public void setTurn() {
         turn = turn == X_TURN ? O_TURN : X_TURN;
     }
 
-    /**
-     * Returns if the move is for player X or for player O
-     *
-     * @return true if it's for player X or false if it's for player O
-     */
+    @Override
     public boolean isTurnForX() {
         return turn == X_TURN;
     }
 
+    @Override
     public int getMoves() {
         return moves;
     }
 
+    @Override
     public void checkAllPossibleWins() {
         w1 = board[0][0] + board[0][1] + board[0][2];
         w2 = board[1][0] + board[1][1] + board[1][2];
@@ -160,11 +150,7 @@ public class GameLogic {
         w8 = board[0][2] + board[1][1] + board[2][0];
     }
 
-    /**
-     * Checks if player X is the winner
-     *
-     * @return true if player X ss the winner or false if it's not
-     */
+    @Override
     public boolean winsX() {
         return w1 == X_WIN ||
                w2 == X_WIN ||
@@ -176,11 +162,7 @@ public class GameLogic {
                w8 == X_WIN;
     }
 
-    /**
-     * Checks if player O is the winner
-     *
-     * @return true if player O ss the winner or false if it's not
-     */
+    @Override
     public boolean winsO() {
         return w1 == O_WIN ||
                w2 == O_WIN ||
@@ -192,31 +174,32 @@ public class GameLogic {
                w8 == O_WIN;
     }
 
+    @Override
     public void setGameWonByX() {
         winner = X_PLAYER;
     }
 
+    @Override
     public void setGameWonByO() {
         winner = O_PLAYER;
     }
 
+    @Override
     public void setGameDraw() {
         winner = DRAW;
     }
 
+    @Override
     public boolean isNotDrawGame() {
         return winner != DRAW;
     }
 
-    /**
-     * Checks who is the winner
-     *
-     * @return true if the winner is player X or false if the winner is player O
-     */
+    @Override
     public boolean xIsTheWinner() {
         return winner == X_PLAYER;
     }
 
+    @Override
     public void printBoard() {
         StringBuilder builder = new StringBuilder();
         builder.append("{\n");
@@ -241,38 +224,47 @@ public class GameLogic {
         Logger.println(builder.toString());
     }
 
+    @Override
     public boolean isCell100Winner() {
         return w1 == X_WIN || w1 == O_WIN || w4 == X_WIN || w4 == O_WIN || w7 == X_WIN || w7 == O_WIN;
     }
 
+    @Override
     public boolean isCell010Winner() {
         return w1 == X_WIN || w1 == O_WIN || w5 == X_WIN || w5 == O_WIN;
     }
 
+    @Override
     public boolean isCell001Winner() {
         return w1 == X_WIN || w1 == O_WIN || w6 == X_WIN || w6 == O_WIN || w8 == X_WIN || w8 == O_WIN;
     }
 
+    @Override
     public boolean isCell200Winner() {
         return w2 == X_WIN || w2 == O_WIN || w4 == X_WIN || w4 == O_WIN;
     }
 
+    @Override
     public boolean isCell020Winner() {
         return w2 == X_WIN || w2 == O_WIN || w5 == X_WIN || w5 == O_WIN || w7 == X_WIN || w7 == O_WIN || w8 == X_WIN || w8 == O_WIN;
     }
 
+    @Override
     public boolean isCell002Winner() {
         return w2 == X_WIN || w2 == O_WIN || w6 == X_WIN || w6 == O_WIN;
     }
 
+    @Override
     public boolean isCell300Winner() {
         return w3 == X_WIN || w3 == O_WIN || w4 == X_WIN || w4 == O_WIN || w8 == X_WIN || w8 == O_WIN;
     }
 
+    @Override
     public boolean isCell030Winner() {
         return w3 == X_WIN || w3 == O_WIN || w5 == X_WIN || w5 == O_WIN;
     }
 
+    @Override
     public boolean isCell003Winner() {
         return w3 == X_WIN || w3 == O_WIN || w6 == X_WIN || w6 == O_WIN || w7 == X_WIN || w7 == O_WIN;
     }

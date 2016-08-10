@@ -4,18 +4,24 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-public class Preferences {
+public final class Preferences {
 
     private static Preferences instance;
-    private Context context;
+    private final Context context;
 
     private Preferences(Context context) {
         this.context = context;
     }
 
-    public static Preferences getInstance(Context context) {
+    public static void init(Context context) {
         if (instance == null) {
             instance = new Preferences(context);
+        }
+    }
+
+    public static Preferences get() {
+        if (instance == null) {
+            throw new RuntimeException("This class must be initialized");
         }
         return instance;
     }
@@ -24,7 +30,8 @@ public class Preferences {
         getPreferences().registerOnSharedPreferenceChangeListener(listener);
     }
 
-    public void unregisterOnSharedPreferenceChangeListener(SharedPreferences.OnSharedPreferenceChangeListener listener) {
+    public void unregisterOnSharedPreferenceChangeListener(
+            SharedPreferences.OnSharedPreferenceChangeListener listener) {
         getPreferences().unregisterOnSharedPreferenceChangeListener(listener);
     }
 
